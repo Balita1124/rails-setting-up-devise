@@ -36,6 +36,7 @@ Utilisation:
 * 7 - Modification du homeController
 
     class HomeController < ApplicationController
+
         before_filter :authenticate_user!
 
         def index
@@ -68,7 +69,7 @@ Utilisation:
 
         8 - e) Ajouter username dans app/views/devise/registrations/new.html.erb
 
-        8 - c) Ajouter ceci dans 
+        8 - c) Ajouter ceci dans /app/controller/application_controller.rb
 
                 devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:email,:username)}
                 devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :username, :password, :password_confirmation)}
@@ -83,6 +84,29 @@ Utilisation:
 
                 config.authentication_keys = [ :signin ]
                 
-        9 - c) 
+        9 - c) Parameterer le modele, ajouter ce code dans ce dernier
+
+                validates :username, :uniqueness => {:case_sensitive => false}
+
+                def self.find_first_by_auth_conditions(warden_conditions)
+                        conditions = warden_conditions.dup
+                        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => signin.downcase }]).first
+                end
+        9 - d) Ajouter ceci dans /app/controller/application_controller.rb
+
+                before_filter :configure_permitted_parameters, if: :devise_controller?
+
+                protected
+
+                def configure_permitted_parameters
+
+                        devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:signin)}
+                        devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email,:username, :password, password_confirmation)}
+
+                end
+        9 - e) Ajouter signin dans /app/views/devise/sessions/new.html.erb
+
+* 10 - Modifier le compte de l'utilisateur
+        10 - a) Ajouter username dans 
 
 
