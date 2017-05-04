@@ -10,30 +10,30 @@ Specification:
 
 Utilisation:
 
-1 - Création de l'application 
+*1 - Création de l'application 
         $ rails new Devise -d mysql
-2 - Ajouter devise dans le Gemfile
+*2 - Ajouter devise dans le Gemfile
 
         gem 'devise'
         gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
 
-3 - Installation des fichiers de configuration de devise
+*3 - Installation des fichiers de configuration de devise
 
         $ rails generate devise:install
 
-4 - Génération du module devise
+*4 - Génération du module devise
 
         $ rails generate devise user
 
-5 - Migration
+*5 - Migration
 
         $rake db:migrate
 
-6 - Création des controleurs(view aussi)
+*6 - Création des controleurs(view aussi)
 
         $ rails generate controller home index
 
-7 - Modification du homeController
+*7 - Modification du homeController
 
     class HomeController < ApplicationController
         before_filter :authenticate_user!
@@ -48,7 +48,7 @@ Utilisation:
         end
 
     end
-8 - Authentification avec un nom d'utilisateur
+*8 - Authentification avec un nom d'utilisateur
 
         8 - a)  Ajouter username dans user
 
@@ -73,7 +73,7 @@ Utilisation:
                 devise_parameter_sanitizer.for(:sign_in) {|u| u.permit(:email,:username)}
                 devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :username, :password, :password_confirmation)}
 
-9 - Authentification à la fois avec un nom d'utilisateur et un email
+*9 - Authentification à la fois avec un nom d'utilisateur et un email
 
         9 - a) ajouter ceci dans /app/models/user.rb
 
