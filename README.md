@@ -107,6 +107,7 @@ Utilisation:
         9 - e) Ajouter signin dans /app/views/devise/sessions/new.html.erb
 
 * 10 - Modifier le compte de l'utilisateur
+
         10 - a) Ajouter username dans 
 
 
